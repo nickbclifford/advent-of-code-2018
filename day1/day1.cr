@@ -1,17 +1,16 @@
-found_freqs = [0_i32]
+freq = 0
+found_freqs = Set(Int32).new
 
-File.open("input.txt") do |file|
-    loop do
-        file.each_line do |line|
-            new_freq = found_freqs.last + line.to_i
-            # puts new_freq
-            if found_freqs.includes?(new_freq)
-                puts new_freq
-                exit
-            else
-                found_freqs << new_freq
-            end
-        end
-        file.rewind
+all_freqs = File.read_lines("input.txt").map(&.to_i)
+
+all_freqs.cycle do |input_freq|
+    new_freq = freq + input_freq
+    
+    if found_freqs.includes?(new_freq)
+        puts new_freq
+        exit
+    else
+        freq = new_freq
+        found_freqs << new_freq
     end
 end
