@@ -1,12 +1,10 @@
-polymer = File.read("input.txt")
+polymer = File.read("input.txt").strip
 
 i = 0
-while i < polymer.size
+while (i + 1) < polymer.size
   char = polymer[i]
 
   if (char.uppercase? && polymer[i + 1] == char.downcase) || (char.lowercase? && polymer[i + 1] == char.upcase)
-    puts "#{polymer[i - 3...i]}[#{polymer[i..i + 1]}]#{polymer[i + 2..i + 5]}"
-    puts "#{polymer[i - 3...i]}[]#{polymer[i + 2..i + 5]}\n"
     polymer = polymer[0...i] + polymer[i + 2..-1]
     i -= 1
   else
@@ -14,4 +12,4 @@ while i < polymer.size
   end
 end
 
-puts polymer, polymer.size
+puts polymer.size
